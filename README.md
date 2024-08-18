@@ -1,4 +1,5 @@
 # Talkeu
+Live: https://talkeu-production.up.railway.app
 
 <h3>How to run in local environment: </h3>
 <ul>
