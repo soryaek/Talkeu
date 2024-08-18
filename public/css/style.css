@@ -1,0 +1,241 @@
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	background-color: #203239;
+	background-position: center;
+	margin: 20px;
+}
+
+ul {
+	list-style: none;
+}
+
+ul li::before {
+	content: "•";
+	font-size:1.8rem;
+	color: green;
+	display: inline-block; 
+	width: 1rem;
+	margin-left:-15px;
+}
+a {
+	text-decoration: none;
+}
+
+.btn {
+	cursor: pointer;
+	padding: 5px 15px;
+	background: #395B64;
+	color: white; 
+	border: 0;
+	font-size: 17px;
+	border-radius: 5px;
+	padding-top:10px;
+	padding-bottom: 10px; 
+	margin-left:-10px;
+}
+
+
+/******Chat Page********/
+.chat-container {
+	max-width: 1100px;
+	background: #fff;
+	margin: 30px auto;
+	overflow: hidden;
+	margin-top:150px;
+	box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;}
+
+
+.chat-header {
+	background: #141E27;
+	color: #fff;
+	padding: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.chat-container .chat-header h1{
+	font-weight: 700;
+	transform: scale(1, .8);
+	box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.chat-main {
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+}
+
+.chat-sidebar {
+	background: #141E27;
+	color: #fff;
+	padding: 20px 20px 60px;
+	overflow-y: auto;
+	border-right: 1px solid grey;
+}
+
+.chat-sidebar h3 {
+	margin-bottom: 15px;
+}
+
+.chat-sidebar ul li {
+	padding: 10px 0;
+}
+
+.chat-messages {
+	padding: 30px;
+	max-height: 500px;
+	overflow-y: auto;
+	background-color:#141E27;
+}
+
+.chat-messages .message {
+	padding: 10px;
+	margin-bottom: 15px;
+	background-color: #e6e9ff; 
+	border-radius: 5px;
+	overflow-wrap: break-word;
+	width: 300px;
+}
+
+.chat-messages .message .meta {
+	font-size: 15px;
+	font-weight: bold;
+	color: #141E27;
+	opacity: 0.7;
+	margin-bottom: 7px;
+}
+
+.chat-messages .message .meta span {
+	color: black;
+	font-size:12px;
+	float:right;
+}
+
+.chat-form-container {
+	padding: 20px 30px;
+	background: #141E27;
+}
+
+.chat-form-container form {
+	display: flex;
+}
+.chat-form-container .empty{
+	flex: 1;
+}
+.chat-form-container input[type='text'] {
+	font-size: 16px;
+	padding: 5px;
+	height: 50px;
+	flex: 2.5
+}
+
+/**** Join Page *****/
+.join-container {
+	max-width: 600px;
+	margin: 40px auto;
+	color: #fff;
+	box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;}
+
+.join-header {
+	text-align: center;
+	padding: 20px;
+	background: #141E27;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.join-main {
+	padding: 30px 40px;
+	background: #141E27;
+}
+
+.join-main p {
+	margin-bottom: 20px;
+}
+
+.join-main .form-control {
+	margin-bottom: 20px;
+}
+
+.join-main label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.join-main input[type='text'] {
+	font-size: 16px;
+	padding: 5px;
+	height: 40px;
+	width: 100%;
+}
+
+.join-main select {
+	font-size: 16px;
+	padding: 5px;
+	height: 40px;
+	width: 100%;
+}
+
+.join-main .btn {
+	margin-top: 20px;
+	width: 100%;
+	font-weight: 600;
+}
+.txt-grey{
+	color: #74959A;
+}
+
+#room-name, 
+#users {
+	margin-left:25px;
+	margin-bottom: 15px;
+}
+
+.send-btn{
+	height: 50px;
+} 
+
+.join-header-talkeu{
+	width: 120px;
+	text-align: center;
+	color: #141E27;
+	text-transform: uppercase;
+	font-weight: 700;
+	transform: scale(1, .8);
+	margin: 0 auto;
+	margin-top: 150px;
+	text-shadow: 
+    1px 0px 1px #ccc, 0px 1px 1px #eee, 
+    2px 1px 1px #ccc, 1px 2px 1px #eee,
+    3px 2px 1px #ccc, 2px 3px 1px #eee,
+    4px 3px 1px #ccc, 3px 4px 1px #eee,
+    5px 4px 1px #ccc, 4px 5px 1px #eee,
+    6px 5px 1px #ccc, 5px 6px 1px #eee,
+    7px 6px 1px #ccc;
+}
+
+@media (max-width: 700px) {
+	.chat-main {
+		display: block;
+	}
+
+	.chat-sidebar {
+		display: none;
+	}
+
+	.chat-form-container .empty{
+		flex:0
+	}
+	.chat-form-container input[type='text'] {
+		flex: 1
+	}
+}
+
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
+		<meta name="description" content="Talkeu" />
+		<meta name="title" property="og:title" content="Talkeu" />
+		<meta property="og:type" content="Website" />
+		<meta name="image" property="og:image" content="https://i.ibb.co/XpRqzbz/talkeu-welcome-page.png" />
+		<meta name="description" property="og:description" content="Talkeu Web App" />
+		<meta name="author" content="Sorya Ek" />
+		<link rel="stylesheet" href="css/style.css" />
+		<title>Talkeu</title>
+	</head>
+	<body>
+		<div class="join-header-talkeu"> <h1>Talkeu</h1></div> 
+		<div class="join-container">
+			<header class="join-header">
+				<h3>Welcome, Let's connect!</h3>
+			</header>
+			<main class="join-main">
+				<form action="chat.html">
+					<div class="form-control">
+						<label for="username">Username</label>
+						<input
+							type="text"
+							name="username"
+							id="username"
+							placeholder=""
+							required
+						/>
+					</div>
+					<div class="form-control">
+						<label for="room">Room</label>
+						<select name="room" id="room">
+							<option value="Room 1">Room 1</option>
+							<option value="Room 2">Room 2</option>
+							<option value="Room 3">Room 3</option>
+							<option value="Room 4">Room 4</option>
+							<option value="Room 5">Room 5</option>
+						</select>
+					</div>
+					<button type="submit" class="btn">Join Chat</button>
+				</form>
+			</main>
+		</div>
+	</body>
+</html>
