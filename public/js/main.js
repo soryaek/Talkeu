@@ -6,7 +6,6 @@ const msgInput = document.getElementById('msg');
 const emojiBtn = document.getElementById('emoji-btn');
 const emojiPicker = document.getElementById('emoji-picker');
 
-// Debug: Check if elements exist
 console.log('Chat form:', chatForm);
 console.log('Chat messages:', chatMessages);
 console.log('Room name:', roomName);
@@ -37,7 +36,6 @@ socket.on('connect', () => {
   console.log('Connected to server');
   showConnectionStatus('Connected', 'success');
   
-  // Join room after connection is established
   socket.emit('joinRoom', { username, room });
 });
 
@@ -57,7 +55,6 @@ socket.on('disconnect', (reason) => {
   showConnectionStatus('Disconnected', 'error');
   
   if (reason === 'io server disconnect') {
-    // Server disconnected us, try to reconnect
     if (reconnectAttempts < maxReconnectAttempts) {
       reconnectAttempts++;
       console.log(`Attempting to reconnect (${reconnectAttempts}/${maxReconnectAttempts})`);
@@ -76,7 +73,6 @@ socket.on('connect_error', (error) => {
   showNotification('Failed to connect to server. Retrying...', 'error');
 });
 
-// Reconnection logic
 let reconnectAttempts = 0;
 const maxReconnectAttempts = 5;
 
@@ -85,7 +81,6 @@ socket.on('error', (error) => {
   showNotification(error.message || 'An error occurred', 'error');
 });
 
-// Initialize user count
 updateUserCount(0);
 
 let typingTimer;
@@ -182,7 +177,19 @@ const displayMessage = (message) => {
 
 const formatMessageText = (text) => {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
-  text = text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  const parts = text.split(urlRegex);
+  let result = '';
+  
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i];
+    
+    if (urlRegex.test(part)) {
+      const escapedUrl = escapeHtml(part);
+      result += `<a href="${escapedUrl}" target="_blank" rel="noopener">${escapedUrl}</a>`;
+    } else {
+      result += escapeHtml(part);
+    }
+  }
   
   const emojiMap = {
     ':)': '😊', ':(': '😢', ':D': '😃', ';)': '😉',
@@ -191,10 +198,10 @@ const formatMessageText = (text) => {
   
   Object.entries(emojiMap).forEach(([code, emoji]) => {
     const escapedCode = code.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    text = text.replace(new RegExp(escapedCode, 'g'), emoji);
+    result = result.replace(new RegExp(escapedCode, 'g'), emoji);
   });
   
-  return escapeHtml(text);
+  return result;
 };
 
 const escapeHtml = (text) => {
@@ -310,7 +317,6 @@ observer.observe(chatMessages, {
   subtree: true
 });
 
-// Emoji picker functionality
 const emojis = [
   '😊', '😂', '❤️', '👍', '🎉', '🔥', '😎', '🤔',
   '😢', '😡', '😴', '🤗', '😍', '😋', '🤣', '😅',
@@ -356,13 +362,10 @@ function hideEmojiPicker() {
   emojiPicker.classList.remove('show');
 }
 
-// Initialize emoji picker
 initEmojiPicker();
 
-// Emoji button click event
 emojiBtn.addEventListener('click', toggleEmojiPicker);
 
-// Hide emoji picker when clicking outside
 document.addEventListener('click', (e) => {
   if (!emojiBtn.contains(e.target) && !emojiPicker.contains(e.target)) {
     hideEmojiPicker();

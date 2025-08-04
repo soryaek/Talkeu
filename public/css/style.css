@@ -265,12 +265,23 @@ a:hover {
 }
 
 .chat-messages .message .text a {
-	color: #2196F3;
+	color: #667eea;
+	text-decoration: none;
+	transition: all 0.2s ease;
+}
+
+.chat-messages .message .text a:hover {
 	text-decoration: underline;
+	color: #4a5568;
 }
 
 .chat-messages .message.own-message .text a {
-	color: rgba(255,255,255,0.9);
+	color: #ffffff;
+}
+
+.chat-messages .message.own-message .text a:hover {
+	color: #e2e8f0;
+	text-decoration: underline;
 }
 
 .typing-indicator {
