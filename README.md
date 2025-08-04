@@ -30,7 +30,6 @@ A modern, secure, and feature-rich real-time chat application built with Node.js
 - **Updated dependencies** to latest stable versions
 - **Better error handling** throughout the application
 - **Code organization** with modular utilities
-- **Performance optimizations** with efficient DOM updates
 
 ## Live Demo
 
@@ -111,7 +110,6 @@ Talkeu/
 - **Rate Limiting**: 100 requests per 15 minutes per IP
 - **Input Validation**: Username and message length limits
 - **XSS Protection**: HTML escaping and sanitization
-- **CORS**: Configured for cross-origin requests
 
 ## Usage
 
@@ -137,15 +135,12 @@ Talkeu/
 - **XSS Prevention**: HTML content is properly escaped
 - **Rate Limiting**: Prevents spam and abuse
 - **Secure Headers**: Helmet.js provides security headers
-- **Error Handling**: Comprehensive error logging and user feedback
 
 ## Accessibility
 
 - **ARIA Labels**: Screen reader support
 - **Keyboard Navigation**: Full keyboard accessibility
 - **Focus Management**: Proper focus indicators
-- **High Contrast**: Support for high contrast mode
-- **Reduced Motion**: Respects user's motion preferences
 
 ## Recent Updates (v2.0.0)
 
@@ -169,7 +164,6 @@ Talkeu/
 
 ### Performance Enhancements
 - Updated dependencies
-- Optimized DOM updates
 - Better error handling
 - Improved code organization
 
@@ -192,7 +186,6 @@ Talkeu/
 - Socket.IO for real-time communication
 - Express.js for the web framework
 - Font Awesome for icons
-- Google Fonts for typography
 
 ---
 
