@@ -27,21 +27,65 @@ if (!username || !room) {
 
 window.username = username;
 
-const socket = io();
+const socket = io({
+  transports: ['websocket', 'polling'],
+  timeout: 20000,
+  forceNew: true
+});
 
 socket.on('connect', () => {
+  console.log('Connected to server');
   showConnectionStatus('Connected', 'success');
+  
+  // Join room after connection is established
+  socket.emit('joinRoom', { username, room });
 });
 
-socket.on('disconnect', () => {
-  showConnectionStatus('Disconnected', 'error');
+socket.on('connected', (data) => {
+  console.log('Server confirmed connection:', data);
 });
+
+socket.on('roomJoined', (data) => {
+  console.log('Successfully joined room:', data);
+  outputRoomName(data.room);
+  outputUsers(data.users);
+  updateUserCount(data.users.length);
+});
+
+socket.on('disconnect', (reason) => {
+  console.log('Disconnected from server:', reason);
+  showConnectionStatus('Disconnected', 'error');
+  
+  if (reason === 'io server disconnect') {
+    // Server disconnected us, try to reconnect
+    if (reconnectAttempts < maxReconnectAttempts) {
+      reconnectAttempts++;
+      console.log(`Attempting to reconnect (${reconnectAttempts}/${maxReconnectAttempts})`);
+      setTimeout(() => {
+        socket.connect();
+      }, 1000 * reconnectAttempts);
+    } else {
+      showNotification('Failed to reconnect. Please refresh the page.', 'error');
+    }
+  }
+});
+
+socket.on('connect_error', (error) => {
+  console.error('Connection error:', error);
+  showConnectionStatus('Connection failed', 'error');
+  showNotification('Failed to connect to server. Retrying...', 'error');
+});
+
+// Reconnection logic
+let reconnectAttempts = 0;
+const maxReconnectAttempts = 5;
 
 socket.on('error', (error) => {
+  console.error('Socket error:', error);
   showNotification(error.message || 'An error occurred', 'error');
 });
 
-socket.emit('joinRoom', { username, room });
+// Initialize user count
 updateUserCount(0);
 
 let typingTimer;
@@ -62,6 +106,7 @@ msgInput.addEventListener('input', () => {
 let stopTypingTimer;
 
 socket.on('roomUsers', ({ room, users }) => {
+  console.log('Room users updated:', { room, users });
   outputRoomName(room);
   outputUsers(users);
   updateUserCount(users.length);

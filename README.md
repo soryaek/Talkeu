@@ -33,7 +33,7 @@ A modern, secure, and feature-rich real-time chat application built with Node.js
 
 ## Live Demo
 
-Visit: https://talkeu-production.up.railway.app
+Visit: https://talkeu.onrender.com/
 
 ## Screenshots
 

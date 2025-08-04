@@ -15,7 +15,11 @@ const io = socketio(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"]
-  }
+  },
+  transports: ['websocket', 'polling'],
+  allowEIO3: true,
+  pingTimeout: 60000,
+  pingInterval: 25000
 });
 
 app.use(helmet({
@@ -53,6 +57,9 @@ const typingUsers = new Map();
 io.on('connection', socket => {
   console.log(`User connected: ${socket.id}`);
 
+  // Send immediate confirmation
+  socket.emit('connected', { id: socket.id });
+
   socket.on('joinRoom', ({ username, room }) => {
     try {
       const errors = validationResult({ body: { username, room } });
@@ -82,12 +89,20 @@ io.on('connection', socket => {
           formatMessage(chatBot, `${user.username} has joined the chat 👋`)
         );
 
+      // Broadcast to all users in the room
       io.to(user.room).emit('roomUsers', {
         room: user.room,
         users: getRoomUsers(user.room)
       });
 
+      // Send room info to the joining user
+      socket.emit('roomJoined', {
+        room: user.room,
+        users: getRoomUsers(user.room)
+      });
+
       console.log(`User ${user.username} joined room ${user.room}`);
+      console.log(`Room ${user.room} now has ${getRoomUsers(user.room).length} users`);
     } catch (error) {
       console.error('Error joining room:', error);
       socket.emit('error', { message: 'Failed to join room' });
@@ -156,7 +171,25 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 
+// Production optimizations
+if (process.env.NODE_ENV === 'production') {
+  console.log('🚀 Running in production mode');
+  
+  // Increase memory limit for production
+  process.setMaxListeners(0);
+  
+  // Better error handling for production
+  process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
+  });
+  
+  process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  });
+}
+
 server.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📱 Open http://localhost:${PORT} to start chatting`);
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
