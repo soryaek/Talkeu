@@ -341,6 +341,58 @@ a:hover {
 	gap: 8px;
 }
 
+.emoji-btn {
+	height: 50px;
+	width: 50px;
+	border-radius: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #f8f9fa;
+	color: #667eea;
+	border: 2px solid #e9ecef;
+	transition: all 0.3s ease;
+}
+
+.emoji-btn:hover {
+	background: #667eea;
+	color: white;
+	border-color: #667eea;
+}
+
+.emoji-picker {
+	position: absolute;
+	bottom: 80px;
+	right: 20px;
+	background: white;
+	border: 1px solid #e9ecef;
+	border-radius: 10px;
+	box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+	padding: 15px;
+	display: none;
+	grid-template-columns: repeat(8, 1fr);
+	gap: 8px;
+	max-width: 320px;
+	z-index: 1000;
+}
+
+.emoji-picker.show {
+	display: grid;
+}
+
+.emoji-item {
+	font-size: 20px;
+	cursor: pointer;
+	padding: 8px;
+	border-radius: 5px;
+	transition: background-color 0.2s ease;
+	text-align: center;
+}
+
+.emoji-item:hover {
+	background-color: #f8f9fa;
+}
+
 /* Join Page */
 .join-container {
 	max-width: 500px;

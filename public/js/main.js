@@ -3,7 +3,17 @@ const chatMessages = document.querySelector('.chat-messages');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
 const msgInput = document.getElementById('msg');
+const emojiBtn = document.getElementById('emoji-btn');
+const emojiPicker = document.getElementById('emoji-picker');
 
+// Debug: Check if elements exist
+console.log('Chat form:', chatForm);
+console.log('Chat messages:', chatMessages);
+console.log('Room name:', roomName);
+console.log('User list:', userList);
+console.log('Message input:', msgInput);
+console.log('Emoji button:', emojiBtn);
+console.log('Emoji picker:', emojiPicker);
 
 
 const { username, room } = Qs.parse(location.search, {
@@ -253,4 +263,63 @@ const observer = new MutationObserver(() => {
 observer.observe(chatMessages, {
   childList: true,
   subtree: true
+});
+
+// Emoji picker functionality
+const emojis = [
+  '😊', '😂', '❤️', '👍', '🎉', '🔥', '😎', '🤔',
+  '😢', '😡', '😴', '🤗', '😍', '😋', '🤣', '😅',
+  '😭', '😤', '😱', '😨', '😰', '😵', '🤯', '😵‍💫',
+  '🥳', '😇', '🤠', '🤡', '👻', '🤖', '👽', '👾',
+  '💪', '👏', '🙌', '🤝', '👊', '✌️', '🤞', '🤟',
+  '🍕', '🍔', '🍟', '🌭', '🌮', '🌯', '🥪', '🥙',
+  '☕', '🍺', '🍷', '🍸', '🍹', '🥤', '🧃', '🥛',
+  '⚽', '🏀', '🏈', '⚾', '🎾', '🏐', '🏉', '🎱'
+];
+
+function initEmojiPicker() {
+  emojis.forEach(emoji => {
+    const emojiItem = document.createElement('div');
+    emojiItem.className = 'emoji-item';
+    emojiItem.textContent = emoji;
+    emojiItem.addEventListener('click', () => {
+      const cursorPos = msgInput.selectionStart;
+      const textBefore = msgInput.value.substring(0, cursorPos);
+      const textAfter = msgInput.value.substring(cursorPos);
+      msgInput.value = textBefore + emoji + textAfter;
+      msgInput.focus();
+      msgInput.setSelectionRange(cursorPos + emoji.length, cursorPos + emoji.length);
+      hideEmojiPicker();
+    });
+    emojiPicker.appendChild(emojiItem);
+  });
+}
+
+function toggleEmojiPicker() {
+  if (emojiPicker.classList.contains('show')) {
+    hideEmojiPicker();
+  } else {
+    showEmojiPicker();
+  }
+}
+
+function showEmojiPicker() {
+  emojiPicker.classList.add('show');
+}
+
+function hideEmojiPicker() {
+  emojiPicker.classList.remove('show');
+}
+
+// Initialize emoji picker
+initEmojiPicker();
+
+// Emoji button click event
+emojiBtn.addEventListener('click', toggleEmojiPicker);
+
+// Hide emoji picker when clicking outside
+document.addEventListener('click', (e) => {
+  if (!emojiBtn.contains(e.target) && !emojiPicker.contains(e.target)) {
+    hideEmojiPicker();
+  }
 });

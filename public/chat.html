@@ -62,10 +62,18 @@
             aria-label="Message input"
             maxlength="1000"
           />
+          <button type="button" class="btn emoji-btn" id="emoji-btn" aria-label="Open emoji picker">
+            <i class="fas fa-smile"></i>
+          </button>
           <button class="btn send-btn" type="submit" aria-label="Send message">
             <i class="fas fa-paper-plane"></i> Send
           </button>
         </form>
+      </div>
+      
+      <!-- Emoji Picker -->
+      <div id="emoji-picker" class="emoji-picker">
+        <!-- Emojis will be added dynamically -->
       </div>
     </div>
 
