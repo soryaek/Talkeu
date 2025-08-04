@@ -190,6 +190,12 @@ if (process.env.NODE_ENV === 'production') {
 
 server.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📱 Open http://localhost:${PORT} to start chatting`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  
+  if (process.env.NODE_ENV === 'production') {
+    console.log(`🌍 Environment: production`);
+    console.log(`📱 Application is live and ready for connections`);
+  } else {
+    console.log(`📱 Open http://localhost:${PORT} to start chatting`);
+    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  }
 });
