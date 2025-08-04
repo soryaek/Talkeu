@@ -676,14 +676,16 @@ select:focus {
 }
 
 /* Form validation styles */
-input:invalid,
-select:invalid {
+input:invalid {
 	border-color: #f44336;
 }
 
-input:valid,
-select:valid {
+input:valid {
 	border-color: #4CAF50;
+}
+
+select {
+	border-color: #e1e5e9;
 }
 
 /* Loading states */
