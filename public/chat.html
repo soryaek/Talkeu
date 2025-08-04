@@ -8,42 +8,63 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
     />
     <link rel="stylesheet" href="css/style.css" />
-    <title>Talkeu App</title>
+    <title>Talkeu Chat - Real-time Messaging</title>
   </head>
   <body>
     <div class="chat-container">
       <header class="chat-header">
         <h1>
-          <!-- <i class="fas fa-smile"></i> -->
-         TALKEU</h1>
-        <a id="leave-btn" class="btn">Exit Room</a>
+          <i class="fas fa-comments"></i> TALKEU
+        </h1>
+        <div class="header-controls">
+          <span id="connection-status" class="connection-status" aria-live="polite"></span>
+          <button id="leave-btn" class="btn" aria-label="Leave chat room">
+            <i class="fas fa-sign-out-alt"></i> Exit Room
+          </button>
+        </div>
       </header>
       <main class="chat-main">
-        <div class="chat-sidebar">
-          <h3 class="txt-grey">
-            <i class="fas fa-comments">
-
-            </i> Joined Room</h3>
-          <h4 id="room-name"></h4>
-          <h3 class="txt-grey">
-            <i class="fas fa-users">
-
-            </i> Online Users</h3>
-          <ul id="users"></ul>
+        <aside class="chat-sidebar" aria-label="Room information and users">
+          <div class="sidebar-section">
+            <h3 class="section-title">
+              <i class="fas fa-comments"></i> Joined Room
+            </h3>
+            <div class="section-content">
+              <h4 id="room-name" aria-live="polite"></h4>
+            </div>
+          </div>
+          
+          <div class="sidebar-section">
+            <h3 class="section-title">
+              <i class="fas fa-users"></i> Online Users
+              <span id="user-count" class="user-count">(0)</span>
+            </h3>
+            <div class="section-content">
+              <ul id="users" aria-live="polite"></ul>
+            </div>
+          </div>
+        </aside>
+        <section class="chat-messages" aria-label="Chat messages" role="log" aria-live="polite">
+          <!-- Messages will be dynamically added here -->
+        </section>
+        <div id="typing-container" class="typing-container">
+          <!-- Typing indicators will appear here -->
         </div>
-        <div class="chat-messages"></div>
       </main>
       <div class="chat-form-container">
-        <form id="chat-form">
-          <div class="empty"></div>
+        <form id="chat-form" aria-label="Send message">
           <input 
             id="msg"
             type="text"
-            placeholder="Enter Message"
+            placeholder="Type your message here..."
             required
             autocomplete="off"
+            aria-label="Message input"
+            maxlength="1000"
           />
-          <button class="btn send-btn"><i class="fas fa-paper-plane"></i> Send</button>
+          <button class="btn send-btn" type="submit" aria-label="Send message">
+            <i class="fas fa-paper-plane"></i> Send
+          </button>
         </form>
       </div>
     </div>

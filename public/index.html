@@ -5,46 +5,106 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
-		<meta name="description" content="Talkeu" />
-		<meta name="title" property="og:title" content="Talkeu" />
+		<meta name="description" content="Talkeu - Modern real-time chat application with room selection and enhanced features" />
+		<meta name="title" property="og:title" content="Talkeu - Modern Chat App" />
 		<meta property="og:type" content="Website" />
 		<meta name="image" property="og:image" content="https://i.ibb.co/XpRqzbz/talkeu-welcome-page.png" />
-		<meta name="description" property="og:description" content="Talkeu Web App" />
+		<meta name="description" property="og:description" content="Join Talkeu for real-time group chat with modern features, typing indicators, and enhanced security" />
 		<meta name="author" content="Sorya Ek" />
+		<meta name="keywords" content="chat, real-time, messaging, group chat, socket.io, talkeu" />
+		<meta name="theme-color" content="#667eea" />
 		<link rel="stylesheet" href="css/style.css" />
-		<title>Talkeu</title>
+		<title>Talkeu - Modern Chat Application</title>
 	</head>
 	<body>
-		<div class="join-header-talkeu"> <h1>Talkeu</h1></div> 
+		<div class="join-header-talkeu"> 
+			<h1>Talkeu</h1>
+		</div> 
 		<div class="join-container">
 			<header class="join-header">
-				<h3>Welcome, Let's connect!</h3>
+				<h3>Welcome, Let's connect! 🚀</h3>
+				<p>Join a room and start chatting with others in real-time</p>
 			</header>
 			<main class="join-main">
-				<form action="chat.html">
+				<form action="chat.html" method="GET" id="join-form">
 					<div class="form-control">
 						<label for="username">Username</label>
 						<input
 							type="text"
 							name="username"
 							id="username"
-							placeholder=""
+							placeholder="Enter your username"
 							required
+							minlength="1"
+							maxlength="20"
+							pattern="[a-zA-Z0-9_\-\s]+"
+							title="Username can only contain letters, numbers, spaces, hyphens, and underscores"
+							aria-describedby="username-help"
 						/>
+						<small id="username-help" class="help-text">Choose a unique username (1-20 characters)</small>
 					</div>
 					<div class="form-control">
 						<label for="room">Room</label>
-						<select name="room" id="room">
-							<option value="Room 1">Room 1</option>
-							<option value="Room 2">Room 2</option>
-							<option value="Room 3">Room 3</option>
-							<option value="Room 4">Room 4</option>
-							<option value="Room 5">Room 5</option>
+						<select name="room" id="room" required aria-describedby="room-help">
+							<option value="">Select a room</option>
+							<option value="General">General</option>
+							<option value="Technology">Technology</option>
+							<option value="Gaming">Gaming</option>
+							<option value="Music">Music</option>
+							<option value="Sports">Sports</option>
+							<option value="Random">Random</option>
 						</select>
+						<small id="room-help" class="help-text">Choose a room to join the conversation</small>
 					</div>
-					<button type="submit" class="btn">Join Chat</button>
+					<button type="submit" class="btn" id="join-btn">
+						<i class="fas fa-sign-in-alt"></i> Join Chat
+					</button>
 				</form>
 			</main>
 		</div>
+
+		<script>
+			// Form validation
+			document.getElementById('join-form').addEventListener('submit', function(e) {
+				const username = document.getElementById('username').value.trim();
+				const room = document.getElementById('room').value;
+				
+				if (!username) {
+					e.preventDefault();
+					alert('Please enter a username');
+					document.getElementById('username').focus();
+					return false;
+				}
+				
+				if (!room) {
+					e.preventDefault();
+					alert('Please select a room');
+					document.getElementById('room').focus();
+					return false;
+				}
+				
+				// Validate username format
+				const usernameRegex = /^[a-zA-Z0-9_\-\s]+$/;
+				if (!usernameRegex.test(username)) {
+					e.preventDefault();
+					alert('Username can only contain letters, numbers, spaces, hyphens, and underscores');
+					document.getElementById('username').focus();
+					return false;
+				}
+			});
+
+			// Auto-focus username field
+			document.addEventListener('DOMContentLoaded', function() {
+				document.getElementById('username').focus();
+			});
+
+			// Keyboard navigation
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+					e.preventDefault();
+					document.getElementById('join-btn').click();
+				}
+			});
+		</script>
 	</body>
 </html>
