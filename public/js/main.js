@@ -158,7 +158,9 @@ const displayMessage = (message) => {
   
   const timeSpan = document.createElement('span');
   timeSpan.className = 'time';
-  timeSpan.textContent = ` ${message.time}`;
+  
+  const messageTime = formatMessageTime(message.timestamp);
+  timeSpan.textContent = ` ${messageTime}`;
   
   p.appendChild(usernameSpan);
   p.appendChild(timeSpan);
@@ -371,3 +373,43 @@ document.addEventListener('click', (e) => {
     hideEmojiPicker();
   }
 });
+
+const formatMessageTime = (timestamp) => {
+  if (!timestamp) return 'now';
+  
+  try {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffInMinutes = Math.floor((now - date) / (1000 * 60));
+    
+    if (date.toDateString() === now.toDateString()) {
+      return date.toLocaleTimeString(navigator.language || 'en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+    }
+    
+    const yesterday = new Date(now);
+    yesterday.setDate(yesterday.getDate() - 1);
+    if (date.toDateString() === yesterday.toDateString()) {
+      return 'Yesterday';
+    }
+    
+    const weekAgo = new Date(now);
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    if (date > weekAgo) {
+      return date.toLocaleDateString(navigator.language || 'en-US', {
+        weekday: 'short'
+      });
+    }
+    
+    return date.toLocaleDateString(navigator.language || 'en-US', {
+      month: 'short',
+      day: 'numeric'
+    });
+  } catch (error) {
+    console.error('Error formatting time:', error);
+    return 'now';
+  }
+};

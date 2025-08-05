@@ -9,7 +9,6 @@ function formatMessage(username, text) {
     return {
       username: sanitizedUsername,
       text: sanitizedText,
-      time: moment().format('h:mm a'),
       timestamp: new Date().toISOString()
     };
   } catch (error) {
@@ -17,7 +16,6 @@ function formatMessage(username, text) {
     return {
       username: 'System',
       text: 'Error formatting message',
-      time: moment().format('h:mm a'),
       timestamp: new Date().toISOString()
     };
   }
